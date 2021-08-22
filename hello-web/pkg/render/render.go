@@ -7,15 +7,32 @@ import (
 	"net/http"
 	"path/filepath"
 	"text/template"
+
+	"github.com/mike-wb/udemy-go/pkg/config"
 )
 
 var functions = template.FuncMap{}
 
+var app *config.AppConfig
+
+// NewTemplates sets the config to the template package
+func NewTemplates(a *config.AppConfig) {
+	app = a
+}
+
 // RenderTemplates renders templates using html/template
 func RenderTemplates(w http.ResponseWriter, tmpl string) {
-	tc, err := CreateTemplateCache()
-	if err != nil {
-		log.Fatal(err)
+	var tc map[string]*template.Template
+	var err error
+
+	if app.UseCache {
+		// get the template from the app configuration
+		tc = app.TemplateCache
+	} else {
+		tc, err = CreateTemplateCache()
+		if err != nil {
+			log.Fatal("cannot crate template cache")
+		}
 	}
 
 	t, ok := tc[tmpl]
