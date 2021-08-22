@@ -28,13 +28,17 @@ func main() {
 
 	render.NewTemplates(&app)
 
-	http.HandleFunc("/", handlers.Repo.Home)
-	http.HandleFunc("/about", handlers.Repo.About)
+	// http.HandleFunc("/", handlers.Repo.Home)
+	// http.HandleFunc("/about", handlers.Repo.About)
+
+	srv := &http.Server{
+		Addr:    fmt.Sprintf(":%d", listenPort),
+		Handler: routes(&app),
+	}
 
 	fmt.Printf("Listening on port %d ...\n", listenPort)
-	err = http.ListenAndServe(fmt.Sprintf(":%d", listenPort), nil)
+	err = srv.ListenAndServe()
 	if err != nil {
-		fmt.Printf("Error listening on port: %d\n", listenPort)
-		fmt.Println("ERR: ", err)
+		log.Fatal(fmt.Sprintf("Error listening on port: %d\n", listenPort))
 	}
 }

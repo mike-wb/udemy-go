@@ -9,6 +9,7 @@ import (
 	"text/template"
 
 	"github.com/mike-wb/udemy-go/pkg/config"
+	"github.com/mike-wb/udemy-go/pkg/models"
 )
 
 var functions = template.FuncMap{}
@@ -20,8 +21,12 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	return td
+}
+
 // RenderTemplates renders templates using html/template
-func RenderTemplates(w http.ResponseWriter, tmpl string) {
+func RenderTemplates(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	var tc map[string]*template.Template
 	var err error
 
@@ -41,7 +46,10 @@ func RenderTemplates(w http.ResponseWriter, tmpl string) {
 	}
 
 	buf := new(bytes.Buffer)
-	_ = t.Execute(buf, nil)
+
+	td = AddDefaultData(td)
+
+	_ = t.Execute(buf, td)
 	_, err = buf.WriteTo(w)
 
 	//parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl)
