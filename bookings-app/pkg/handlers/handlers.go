@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"net/http"
+	"path"
 
-	"github.com/tsawler/bookings-app/pkg/config"
-	"github.com/tsawler/bookings-app/pkg/models"
-	"github.com/tsawler/bookings-app/pkg/render"
+	"github.com/mike-wb/udemy-go/bookings-app/pkg/config"
+	"github.com/mike-wb/udemy-go/bookings-app/pkg/models"
+	"github.com/mike-wb/udemy-go/bookings-app/pkg/render"
 )
 
 // Repo the repository used by the handlers
@@ -51,26 +52,47 @@ func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// Room is the handler for the rooms page
+// Rooms is the handler to show the list of rooms
+func (m *Repository) Rooms(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "rooms.page.tmpl", &models.TemplateData{
+		Page: r.URL.Path,
+		Data: map[string]interface{}{
+			"rooms": models.Rooms,
+		},
+	})
+}
+
+// Room is the handler for an individual room page
 func (m *Repository) Room(w http.ResponseWriter, r *http.Request) {
 	// send data to the template
-	if r.URL.Path == "/rooms/generals-quarters" {
-		render.RenderTemplate(w, "generals.page.tmpl", &models.TemplateData{
+	path := path.Base(path.Clean(r.URL.Path))
+
+	room, ok := models.Rooms[path]
+
+	if ok {
+		render.RenderTemplate(w, "room.page.tmpl", &models.TemplateData{
 			Page: r.URL.Path,
-		})
-	} else if r.URL.Path == "/rooms/majors-suite" {
-		render.RenderTemplate(w, "majors.page.tmpl", &models.TemplateData{
-			Page: r.URL.Path,
+			Data: map[string]interface{}{
+				"room": room,
+			},
 		})
 	} else {
-		Repo.Home(w, r)
+		http.Redirect(w, r, "/rooms", http.StatusTemporaryRedirect)
 	}
 }
 
-// Reservation is the handler for the reservation page
-func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
+// Availability renders the search availability page
+func (m *Repository) Availability(w http.ResponseWriter, r *http.Request) {
 	// send data to the template
-	render.RenderTemplate(w, "reservation.page.tmpl", &models.TemplateData{
+	render.RenderTemplate(w, "search-availability.page.tmpl", &models.TemplateData{
+		Page: r.URL.Path,
+	})
+}
+
+// PostAvailability renders the search availability page
+func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
+	// send data to the template
+	render.RenderTemplate(w, "search-availability.page.tmpl", &models.TemplateData{
 		Page: r.URL.Path,
 	})
 }

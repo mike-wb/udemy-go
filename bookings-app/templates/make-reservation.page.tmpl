@@ -1,43 +1,45 @@
 {{template "base" .}}
 
-{{define "page-name"}}Make Reservation - Smythe Bed and Breakfast{{end}}
+{{define "page-name"}}Make Reservation{{end}}
 
 {{define "content"}}
 <div class="container">
     <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <h1 class="text-center mt-5">Make Reservation</h1>
-            <form action="/make-reservation" method="get">
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-3">
-                            <label for="start_date" class="form-label">Starting Date</label>
-                            <input name="start_date" type="date" required class="form-control" id="start_date"
-                                aria-describedby="startDateHelp">
-                            <div id="startDateHelp" class="form-text">Enter your start date in the form of
-                                YYYY-MM-DD.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="mb-3">
-                            <label for="end_date" class="form-label">Ending Date</label>
-                            <input name="end_date" type="date" required class="form-control" id="end_date"
-                                aria-describedby="endDateHelp">
-                            <div id="endDateHelp" class="form-text">Enter your ending date in the form of
-                                YYYY-MM-DD.
-                            </div>
-                        </div>
+        <div class="col">
+            <h1 class="mt-4">Make a Reservation</h1>
+            <p><strong>Reservation Details</strong></p>
+            <form action="/make-reservation" method="post" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label for="first-name" class="form-label">First Name:</label>
+                    <input type="text" required class="form-control" id="first-name">
+                    <div class="invalid-feedback">
+                        Please provide your first name.
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="mb-3">
+                    <label for="last-name" class="form-label">Last Name:</label>
+                    <input type="text" required class="form-control" id="last-name">
+                    <div class="invalid-feedback">
+                        Please provide your last name.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email-addr" class="form-label">Email address:</label>
+                    <input type="email" required class="form-control" id="email-addr">
+                    <div class="invalid-feedback">
+                        Please provide your email address.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number:</label>
+                    <input type="tel" required class="form-control" id="phone">
+                    <div class="invalid-feedback">
+                        Please provide your phone number.
+                    </div>
+                </div>
+                
+                <button id="check-availability" class="btn btn-primary">Check Availability</button>
             </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col text-center">
-            <a href="/make-reservation" class="btn btn-success">Make Reservation Now!</a>
         </div>
     </div>
 </div>

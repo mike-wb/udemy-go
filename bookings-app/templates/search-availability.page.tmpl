@@ -1,0 +1,47 @@
+{{template "base" .}}
+
+{{define "page-name"}}Search Availability{{end}}
+
+{{define "content"}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h1 class="text-center mt-5">Search Availability</h1>
+            <form action="/search-availability" method="post" class="needs-validation" novalidate>
+                <div class="row" id="reservation-dates">
+                    <div class="col">
+                        <div class="mb-3">
+                            <input name="start" type="text" required class="form-control" id="start_date"
+                                placeholder="Arrival date">
+                            <div class="invalid-feedback">
+                                Please provide an arrival date.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <input name="end" type="text" required class="form-control" id="end_date"
+                                placeholder="Departure date">
+                            <div class="invalid-feedback">
+                                Please provide a departure date.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Find Availability</button>
+            </form>
+        </div>
+    </div>
+</div>
+{{end}}
+
+{{define "js"}}
+<script>
+    const elem = document.getElementById('reservation-dates');
+    const rangePicker = new DateRangePicker(elem, {
+        format: 'dd MM yyyy',
+        minDate: Date.now(),
+    });
+</script>
+{{end}}

@@ -1,0 +1,23 @@
+{{template "base" .}}
+
+{{define "page-name"}}Rooms{{end}}
+
+{{define "content"}}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center mt-4">Our Rooms</h1>
+            <p>Smythe Bed and Breakfast has several exquisite and relaxing rooms that will make your stay memorable.</p>
+        </div>
+    </div>
+    {{range $key, $value := .Data.rooms}}
+        <div class="d-flex position-relative room-list">
+            <img src="/static/{{$value.Image}}" class="flex-shrink-0 me-3 img-thumbnail room-thumbnail" alt="{{$value.Name}}">
+            <div>
+                <h5 class="mt-0" style="margin-top: auto;"><a href="/rooms/{{$value.Id}}" class="stretched-link link-dark text-decoration-none">{{$value.Name}}</a></h5>
+                <p style="margin-bottom: auto;">{{$value.Description}}</p>
+            </div>
+        </div>
+    {{end}}
+</div>
+{{end}}

@@ -1,0 +1,31 @@
+{{template "base" .}}
+
+{{define "page-name"}}{{.Data.room.Name}}{{end}}
+
+{{define "content"}}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <img src="/static/{{.Data.room.Image}}" class="img-fluid img-thumbnail mx-auto d-block room-image"
+                alt="{{.Data.room.Name}}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center mt-4">{{.Data.room.Name}}</h1>
+            <p>{{.Data.room.Description}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <a href="#!" id="check-availability" class="btn btn-success">Check Availability</a>
+        </div>
+    </div>
+</div>
+{{end}}
+
+{{define "js"}}
+<script>
+    document.getElementById('check-availability').addEventListener('click', reserve.prompt);
+</script>
+{{end}}

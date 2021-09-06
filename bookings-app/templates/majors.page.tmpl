@@ -1,6 +1,6 @@
 {{template "base" .}}
 
-{{define "page-name"}}Major's Suite - Smythe Bed and Breakfast{{end}}
+{{define "page-name"}}Major's Suite{{end}}
 
 {{define "content"}}
 <div class="container">
@@ -29,8 +29,14 @@
     </div>
     <div class="row">
         <div class="col text-center">
-            <a href="/make-reservation-ms" class="btn btn-success">Check Availability</a>
+            <a href="#!" class="btn btn-success">Check Availability</a>
         </div>
     </div>
 </div>
+{{end}}
+
+{{define "js"}}
+<script>
+    document.getElementById('check-availability').addEventListener('click', reserve.prompt);
+</script>
 {{end}}

@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/tsawler/bookings-app/pkg/config"
-	"github.com/tsawler/bookings-app/pkg/handlers"
-	"github.com/tsawler/bookings-app/pkg/render"
+	"github.com/mike-wb/udemy-go/bookings-app/pkg/config"
+	"github.com/mike-wb/udemy-go/bookings-app/pkg/handlers"
+	"github.com/mike-wb/udemy-go/bookings-app/pkg/render"
 )
 
 const portNumber = ":8080"
@@ -44,7 +44,7 @@ func main() {
 
 	render.NewTemplates(&app)
 
-	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
+	fmt.Printf("Starting application on port %s\n", portNumber)
 
 	srv := &http.Server{
 		Addr:    portNumber,

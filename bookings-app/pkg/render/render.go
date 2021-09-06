@@ -3,12 +3,13 @@ package render
 import (
 	"bytes"
 	"fmt"
-	"github.com/tsawler/bookings-app/pkg/config"
-	"github.com/tsawler/bookings-app/pkg/models"
 	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/mike-wb/udemy-go/bookings-app/pkg/config"
+	"github.com/mike-wb/udemy-go/bookings-app/pkg/models"
 )
 
 var functions = template.FuncMap{}

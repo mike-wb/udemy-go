@@ -11,6 +11,17 @@
     max-width: 50%;
 }
 
+.room-thumbnail {
+    max-width: 10%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.room-list {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
 .notie-container {
     box-shadow: none;
 }
