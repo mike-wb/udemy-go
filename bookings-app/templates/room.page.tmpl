@@ -1,12 +1,12 @@
-{{template "base" .}}
+{{- /* Go Template file */ -}}
 
-{{define "page-name"}}{{.Data.room.Name}}{{end}}
+{{template "base" .}}
 
 {{define "content"}}
 <div class="container">
     <div class="row">
         <div class="col">
-            <img src="/static/{{.Data.room.Image}}" class="img-fluid img-thumbnail mx-auto d-block room-image"
+            <img src="/static/{{.Data.room.Image}}" class="img-fluid img-thumbnail mx-auto d-block w-50"
                 alt="{{.Data.room.Name}}">
         </div>
     </div>
@@ -26,6 +26,9 @@
 
 {{define "js"}}
 <script>
-    document.getElementById('check-availability').addEventListener('click', reserve.prompt);
+    document.getElementById('check-availability').addEventListener('click', () => reserve.prompt({
+        csrf_token: "{{.CSRFToken}}",
+        room: "{{.Data.room.Id}}",
+    }));
 </script>
 {{end}}

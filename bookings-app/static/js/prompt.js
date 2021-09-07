@@ -1,21 +1,21 @@
 function Prompt() {
-    let notify = function(c) {
+    let notify = function (c) {
         const {
             msg = "",
-            msgType = "success"
+                msgType = "success"
         } = c;
         notie.alert({
             type: msgType,
             text: msg,
         })
     }
-    
+
     let notifyModal = function (c) {
         const {
             title = "",
-            msg = "",
-            icon = "info",
-            btnText = "OK",
+                msg = "",
+                icon = "info",
+                btnText = "OK",
         } = c;
         Swal.fire({
             title: title,
@@ -80,36 +80,47 @@ function Prompt() {
 
     let custom = async function (c) {
         const {
-            msg = "",
-                title = ""
+            html = "",
+                title = "",
+                callback = undefined,
+                willOpen = undefined,
+                didOpen = undefined,
+                preConfirm = undefined,
         } = c;
 
-        const {
-            value: formValues
-        } = await Swal.fire({
+        Swal.fire({
             title: title,
-            html: msg,
+            html: html,
             focusConfirm: false,
             showCancelButton: true,
             willOpen: () => {
-                const elem = document.getElementById('reservation-dates-modal');
-                const rp = new DateRangePicker(elem, {format: 'yyyy-MM-dd', showOnFocus: true,});
+                if (willOpen !== undefined) {
+                    willOpen();
+                }
             },
             didOpen: () => {
-                document.getElementById('start').removeAttribute('disabled');
-                document.getElementById('end').removeAttribute('disabled');
+                if (didOpen !== undefined) {
+                    didOpen();
+                }
             },
             preConfirm: () => {
-                return [
-                    document.getElementById('start').value,
-                    document.getElementById('end').value
-                ]
+                if (preConfirm !== undefined) {
+                    return preConfirm();
+                } else {
+                    return {};
+                }
+            }
+        }).then((result) => {
+            if (result.isConfirmed && callback !== undefined) {
+                if (result.value !== "") {
+                    callback(result.value);
+                } else {
+                    callback(false);
+                }
+            } else {
+                callback(false);
             }
         })
-
-        if (formValues) {
-            Swal.fire(JSON.stringify(formValues))
-        }
     }
 
     return {

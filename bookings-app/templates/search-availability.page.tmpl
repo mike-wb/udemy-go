@@ -1,6 +1,6 @@
-{{template "base" .}}
+{{- /* Go Template file */ -}}
 
-{{define "page-name"}}Search Availability{{end}}
+{{template "base" .}}
 
 {{define "content"}}
 <div class="container">
@@ -9,6 +9,7 @@
         <div class="col-md-6">
             <h1 class="text-center mt-5">Search Availability</h1>
             <form action="/search-availability" method="post" class="needs-validation" novalidate>
+                <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
                 <div class="row" id="reservation-dates">
                     <div class="col">
                         <div class="mb-3">
@@ -40,8 +41,11 @@
 <script>
     const elem = document.getElementById('reservation-dates');
     const rangePicker = new DateRangePicker(elem, {
-        format: 'dd MM yyyy',
+        format: 'mm-dd-yyyy',
         minDate: Date.now(),
+        showOnFocus: true,
+        todayHighlight: true,
+        maxNumberOfDates: 2,
     });
 </script>
 {{end}}

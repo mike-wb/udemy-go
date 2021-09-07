@@ -1,3 +1,5 @@
+{{- /* Go Template file */ -}}
+
 {{define "base"}}
 <!doctype html>
 <html lang="en">
@@ -14,7 +16,7 @@
         href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker-bs4.min.css">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
-    <title>{{block "page-name" .}}{{end}} - Smythe Bed and Breakfast</title>
+    <title>{{.Page}} - Smythe Bed and Breakfast</title>
     {{block "css" .}}
     {{end}}
 </head>
@@ -31,13 +33,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link{{if eq .Path "home"}} active" aria-current="page"{{else}}"{{end}} href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
+                        <a class="nav-link{{if eq .Path "about"}} active" aria-current="page"{{else}}"{{end}} href="/about">About</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="/rooms" id="roomDropdown" role="button"
+                        <a class="nav-link dropdown-toggle{{if eq .Path "rooms"}} active" aria-current="page"{{else}}"{{end}} href="/rooms" id="roomDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Rooms
                         </a>
@@ -47,16 +49,12 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact</a>
+                        <a class="nav-link{{if eq .Path "contact"}} active" aria-current="page"{{else}}"{{end}} href="/contact">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/search-availability">Book Now</a>
+                        <a class="nav-link{{if eq .Path "search-availability"}} active" aria-current="page"{{else}}"{{end}} href="/search-availability">Book Now</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </nav>

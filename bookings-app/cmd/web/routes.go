@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-	"github.com/mike-wb/udemy-go/bookings-app/pkg/config"
-	"github.com/mike-wb/udemy-go/bookings-app/pkg/handlers"
+	"github.com/mike-wb/udemy-go/bookings-app/internal/config"
+	"github.com/mike-wb/udemy-go/bookings-app/internal/handlers"
 )
 
 func routes(app *config.AppConfig) http.Handler {
@@ -21,8 +21,10 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/contact", handlers.Repo.Contact)
 	mux.Get("/rooms", handlers.Repo.Rooms)
 	mux.Get("/rooms/*", handlers.Repo.Room)
+
 	mux.Get("/search-availability", handlers.Repo.Availability)
 	mux.Post("/search-availability", handlers.Repo.PostAvailability)
+	mux.Post("/search-availability-json", handlers.Repo.AvailabilityJSON)
 	mux.Get("/make-reservation", handlers.Repo.MakeReservation)
 
 	fileServer := http.FileServer(http.Dir("./static/"))
