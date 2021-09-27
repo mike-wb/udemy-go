@@ -1,5 +1,7 @@
 package models
 
+import "github.com/mike-wb/udemy-go/bookings-app/internal/forms"
+
 // TemplateData holds data sent from handlers to templates
 type TemplateData struct {
 	Page      string
@@ -12,4 +14,5 @@ type TemplateData struct {
 	Flash     string
 	Warning   string
 	Error     string
+	Form      *forms.Form
 }

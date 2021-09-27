@@ -8,6 +8,7 @@ import (
 	"path"
 
 	"github.com/mike-wb/udemy-go/bookings-app/internal/config"
+	"github.com/mike-wb/udemy-go/bookings-app/internal/forms"
 	"github.com/mike-wb/udemy-go/bookings-app/internal/models"
 	"github.com/mike-wb/udemy-go/bookings-app/internal/render"
 )
@@ -130,11 +131,17 @@ func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 	w.Write(out)
 }
 
-// MakeReservation is the handler for the make-reservation page
-func (m *Repository) MakeReservation(w http.ResponseWriter, r *http.Request) {
+// Reservation is the handler for the make-reservation page
+func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 	// send data to the template
 	render.RenderTemplate(w, r, "make-reservation.page.tmpl", &models.TemplateData{
 		Page: "Make Reservation",
 		Path: "search-availability",
+		Form: forms.New(nil),
 	})
+}
+
+// PostReservation handles the posting of a reservation form
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+
 }
