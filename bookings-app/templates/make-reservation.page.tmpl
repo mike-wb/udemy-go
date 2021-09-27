@@ -8,32 +8,38 @@
         <div class="col">
             <h1 class="mt-4">Make a Reservation</h1>
             <p><strong>Reservation Details</strong></p>
-            <form action="/make-reservation" method="post" class="needs-validation" novalidate>
+            {{$res := index .Data "reservation"}}
+            <!--<form action="/make-reservation" method="post" class="needs-validation" novalidate> -->
+            <form action="/make-reservation" method="post" novalidate>
                 <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
                 <div class="mb-3">
-                    <label for="first-name" class="form-label">First Name:</label>
-                    <input type="text" required class="form-control" id="first-name">
+                    <label for="first_name" class="form-label">First Name:
+                    {{with .Form.Errors.Get "first_name"}}<span class="text-danger">{{.}}</span>{{end}}</label>
+                    <input type="text" name="first_name" required class="form-control {{with .Form.Errors.Get "first_name"}} is-invalid {{end}}" id="first_name" value="{{$res.FirstName}}">
                     <div class="invalid-feedback">
                         Please provide your first name.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="last-name" class="form-label">Last Name:</label>
-                    <input type="text" required class="form-control" id="last-name">
+                    <label for="last_name" class="form-label">Last Name:
+                    {{with .Form.Errors.Get "last_name"}}<span class="text-danger">{{.}}</span>{{end}}</label>
+                    <input type="text" name="last_name" required class="form-control {{with .Form.Errors.Get "last_name"}} is-invalid {{end}}" id="last_name" value="{{$res.LastName}}">
                     <div class="invalid-feedback">
                         Please provide your last name.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="email-addr" class="form-label">Email address:</label>
-                    <input type="email" required class="form-control" id="email-addr">
+                    <label for="email" class="form-label">Email address:
+                    {{with .Form.Errors.Get "email"}}<span class="text-danger">{{.}}</span>{{end}}</label>
+                    <input type="email" name="email" required class="form-control {{with .Form.Errors.Get "email"}} is-invalid {{end}}" id="email" value="{{$res.Email}}">
                     <div class="invalid-feedback">
                         Please provide your email address.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="phone" class="form-label">Phone Number:</label>
-                    <input type="tel" required class="form-control" id="phone">
+                    <label for="phone" class="form-label">Phone Number:
+                    {{with .Form.Errors.Get "phone"}}<span class="text-danger">{{.}}</span>{{end}}</label>
+                    <input type="tel" name="phone" required class="form-control {{with .Form.Errors.Get "phone"}} is-invalid {{end}}" value="{{$res.Phone}}">
                     <div class="invalid-feedback">
                         Please provide your phone number.
                     </div>

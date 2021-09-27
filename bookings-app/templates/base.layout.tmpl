@@ -111,6 +111,19 @@
                     }, false)
                 })
         })()
+
+        {{with .Error}}
+        attention.notify({msg: "{{.}}", msgType: "error",})
+        {{end}}
+
+        {{with .Warning}}
+        attention.notify({msg: "{{.}}", msgType: "warning"})
+        {{end}}
+
+        {{with .Flash}}
+        attention.notify({msg: "{{.}}", msgType: "success"})
+        {{end}}
+
     </script>
     {{block "js" .}}
     {{end}}
